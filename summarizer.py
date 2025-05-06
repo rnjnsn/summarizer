@@ -25,8 +25,8 @@ if "usage_count" not in st.session_state:
     st.session_state.usage_count = 0
 
 st.set_page_config(page_title="GPT Summarizer", layout="centered")
-st.title("🧠 GPT-Powered Summarizer")
-st.info("🚧 Demo version: Limited to 3000 characters per input to control API usage.")
+st.title("GPT-Powered Summarizer")
+st.info("Demo version: Limited to 3000 characters per input to control API usage.")
 
 text_input = st.text_area("Paste your text here:", height=250)
 st.caption(f"🧪 You have {3 - st.session_state.usage_count} summaries left in this session.")
