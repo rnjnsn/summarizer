@@ -1,15 +1,15 @@
-import openai
+from openai import OpenAI
 import streamlit as st
 from dotenv import load_dotenv
 import os
 
-# Load API key from .env (recommended)
+# --- Load API Key ---
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY")) 
 
 # --- Summarization Function ---
 def summarize_text(text, model="gpt-3.5-turbo"):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model=model,
         messages=[
             {"role": "system", "content": "You are a helpful assistant that summarizes text."},
@@ -18,12 +18,18 @@ def summarize_text(text, model="gpt-3.5-turbo"):
         temperature=0.5,
         max_tokens=300
     )
-    return response['choices'][0]['message']['content']
+    return response.choices[0].message.content
 
 # --- Streamlit UI ---
+if "usage_count" not in st.session_state:
+    st.session_state.usage_count = 0
+
+st.set_page_config(page_title="GPT Summarizer", layout="centered")
 st.title("🧠 GPT-Powered Summarizer")
 st.info("🚧 Demo version: Limited to 3000 characters per input to control API usage.")
+
 text_input = st.text_area("Paste your text here:", height=250)
+st.caption(f"🧪 You have {3 - st.session_state.usage_count} summaries left in this session.")
 
 if st.button("Summarize"):
     if not text_input.strip():
