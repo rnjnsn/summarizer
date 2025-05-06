@@ -28,3 +28,12 @@ The app summarizes user-provided text using GPT. It's designed as a minimal, saf
 ```bash
 git clone https://github.com/rnjnsn/summarizer.git
 cd summarizer
+```
+
+## Try the Live Demo
+
+You can test it online here:
+
+https://summarizer-hhadkthdzho5rnjzadeoqw.streamlit.app/
+
+* Note: The course uses openai.ChatCompletion.create(), which, I learned, has since changed in OpenAI Python SDK v1+. This project uses the newer client-based format: client.chat.completions.create().
